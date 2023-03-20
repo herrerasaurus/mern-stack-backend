@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express()
 const cors = require("cors")
+app.use(cors())
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 const jwt = require("jsonwebtoken")
@@ -98,7 +99,6 @@ app.post("/user/login", async(req, res) => {
                     email: req.body.email,
                 }
                 const token = jwt.sign(payload, secret_key, {expiresIn: "23h"})
-                console.log(token)
                 return res.status(200).json({ message: "ログイン成功", token: token })
             } else {
                 return res.status(400).json( {message: "ログイン失敗：パスワードが間違っています"} )
